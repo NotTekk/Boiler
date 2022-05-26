@@ -6,7 +6,6 @@ import com.tr3ntu.Boiler.commands.fun.GifCommand;
 import com.tr3ntu.Boiler.commands.fun.YoMamaCommand;
 import com.tr3ntu.Boiler.commands.mcUtilities.ServerStatusCommand;
 import com.tr3ntu.Boiler.commands.music.*;
-import com.tr3ntu.Boiler.commands.nsfw.e621.E621Command;
 import com.tr3ntu.Boiler.commands.utilities.CWConfigCommand;
 import com.tr3ntu.Boiler.commands.utilities.GitHubCommand;
 import com.tr3ntu.Boiler.commands.utilities.PingCommand;
@@ -58,8 +57,7 @@ public class CommandManager {
         commands.add(new ResumeCommand());
         commands.add(new PauseCommand());
         commands.add(new SetVolumeCommand());
-        //Nsfw
-        commands.add(new E621Command());
+
     }
 
     public List<ICommand> getCommands() {
