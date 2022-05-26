@@ -1,5 +1,6 @@
 package com.tr3ntu.Boiler.commands.fun;
 
+import com.tr3ntu.Boiler.Config;
 import com.tr3ntu.Boiler.utils.CommandContext;
 import com.tr3ntu.Boiler.utils.ICommand;
 import okhttp3.OkHttpClient;
@@ -27,7 +28,7 @@ public class GifCommand implements ICommand {
         }
 
         OkHttpClient caller = new OkHttpClient();
-        Request request = new Request.Builder().url("http://api.giphy.com/v1/gifs/search?q=" + query + "&api_key=LQQMIxvJxwpWiEblzinAHkSkqT5mXDLW").build();
+        Request request = new Request.Builder().url("http://api.giphy.com/v1/gifs/search?q=" + query + Config.get("GIF_API_KEY")).build();
 
         try {
             Random rand = new Random();
