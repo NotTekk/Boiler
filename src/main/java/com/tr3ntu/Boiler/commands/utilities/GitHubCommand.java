@@ -1,8 +1,8 @@
 package com.tr3ntu.Boiler.commands.utilities;
 
 import com.tr3ntu.Boiler.commands.HelpCommand;
-import com.tr3ntu.Boiler.utils.CommandContext;
-import com.tr3ntu.Boiler.utils.ICommand;
+import com.tr3ntu.Boiler.utils.commandUtils.CommandContext;
+import com.tr3ntu.Boiler.utils.commandUtils.ICommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -20,7 +20,7 @@ public class GitHubCommand implements ICommand {
     private static final Logger LOGGER = LoggerFactory.getLogger(HelpCommand.class);
 
     @Override
-    public boolean handle(CommandContext ctx) {
+    public void handle(CommandContext ctx) {
 
         String msg = String.join(" ", ctx.getArgs());
         OkHttpClient caller = new OkHttpClient();
@@ -78,7 +78,6 @@ public class GitHubCommand implements ICommand {
 
         LOGGER.info("GitHub Command - Executed");
 
-        return false;
     }
 
     @Override

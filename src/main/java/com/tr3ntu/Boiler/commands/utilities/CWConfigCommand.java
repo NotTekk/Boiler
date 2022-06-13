@@ -1,17 +1,19 @@
 package com.tr3ntu.Boiler.commands.utilities;
 
 import com.tr3ntu.Boiler.Config;
-import com.tr3ntu.Boiler.utils.CommandContext;
-import com.tr3ntu.Boiler.utils.ICommand;
+import com.tr3ntu.Boiler.utils.commandUtils.CommandContext;
+import com.tr3ntu.Boiler.utils.commandUtils.ICommand;
 import net.dv8tion.jda.api.entities.User;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class CWConfigCommand implements ICommand {
+
     @Override
-    public boolean handle(CommandContext ctx) {
+    public void handle(CommandContext ctx) {
         System.out.println("test");
         Writer output;
         User user = ctx.getAuthor();
@@ -40,7 +42,6 @@ public class CWConfigCommand implements ICommand {
                 }
             }
         }
-        return false;
     }
 
     @Override
@@ -51,5 +52,10 @@ public class CWConfigCommand implements ICommand {
     @Override
     public String getHelp() {
         return null;
+    }
+
+    @Override
+    public List<String> getAliases() {
+        return ICommand.super.getAliases();
     }
 }

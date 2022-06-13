@@ -20,8 +20,4 @@ public class DataHandling {
         File outputfile = new File("image.png");
         ImageIO.write(img, "png", outputfile);
     }
-
-    public Scanner getScanner() throws FileNotFoundException {
-        return new Scanner(new File("cursewords.txt"));
-    }
 }

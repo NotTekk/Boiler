@@ -2,8 +2,8 @@ package com.tr3ntu.Boiler.commands.music;
 
 import com.tr3ntu.Boiler.Config;
 import com.tr3ntu.Boiler.audioHandler.PlayerManager;
-import com.tr3ntu.Boiler.utils.CommandContext;
-import com.tr3ntu.Boiler.utils.ICommand;
+import com.tr3ntu.Boiler.utils.commandUtils.CommandContext;
+import com.tr3ntu.Boiler.utils.commandUtils.ICommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
@@ -16,7 +16,7 @@ import java.net.URISyntaxException;
 public class PlayCommand implements ICommand {
     @SuppressWarnings("ConstantConditions")
     @Override
-    public boolean handle(CommandContext ctx) {
+    public void handle(CommandContext ctx) {
         final TextChannel channel = ctx.getChannel();
 
         if (ctx.getArgs().isEmpty()) {
@@ -27,7 +27,7 @@ public class PlayCommand implements ICommand {
 
             channel.sendMessage(m.build()).queue();
             m.clear();
-            return false;
+            return;
 
         }
 
@@ -41,7 +41,7 @@ public class PlayCommand implements ICommand {
 
             channel.sendMessageEmbeds(m.build()).queue();
             m.clear();
-            return false;
+            return;
         }
 
         final Member member = ctx.getMember();
@@ -54,7 +54,7 @@ public class PlayCommand implements ICommand {
 
             channel.sendMessage(m.build()).queue();
             m.clear();
-            return false;
+            return;
         }
 
         if (!memberVoiceState.getChannel().equals(selfVoiceState.getChannel())) {
@@ -64,7 +64,7 @@ public class PlayCommand implements ICommand {
 
             channel.sendMessage(m.build()).queue();
             m.clear();
-            return false;
+            return;
         }
 
         String link = String.join(" ", ctx.getArgs());
@@ -74,7 +74,6 @@ public class PlayCommand implements ICommand {
         }
 
         PlayerManager.getInstance().loadAndPlay(channel, link);
-        return false;
     }
 
     @Override

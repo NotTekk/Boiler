@@ -1,7 +1,7 @@
 package com.tr3ntu.Boiler.commands.fun;
 
-import com.tr3ntu.Boiler.utils.CommandContext;
-import com.tr3ntu.Boiler.utils.ICommand;
+import com.tr3ntu.Boiler.utils.commandUtils.CommandContext;
+import com.tr3ntu.Boiler.utils.commandUtils.ICommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.User;
 import okhttp3.OkHttpClient;
@@ -19,7 +19,7 @@ import java.util.Random;
 public class YoMamaCommand implements ICommand {
 
     @Override
-    public boolean handle(CommandContext ctx) {
+    public void handle(CommandContext ctx) {
 
         Random random = new Random();
         float r = random.nextFloat();
@@ -54,7 +54,7 @@ public class YoMamaCommand implements ICommand {
                 }
             }
         }
-        return false;
+
     }
 
     @Override

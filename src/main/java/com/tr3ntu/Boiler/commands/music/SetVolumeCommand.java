@@ -2,8 +2,8 @@ package com.tr3ntu.Boiler.commands.music;
 
 import com.tr3ntu.Boiler.audioHandler.GuildMusicManager;
 import com.tr3ntu.Boiler.audioHandler.PlayerManager;
-import com.tr3ntu.Boiler.utils.CommandContext;
-import com.tr3ntu.Boiler.utils.ICommand;
+import com.tr3ntu.Boiler.utils.commandUtils.CommandContext;
+import com.tr3ntu.Boiler.utils.commandUtils.ICommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
@@ -13,7 +13,7 @@ import java.awt.*;
 
 public class SetVolumeCommand implements ICommand {
     @Override
-    public boolean handle(CommandContext ctx) {
+    public void handle(CommandContext ctx) {
         String s = ctx.getMessage().getContentRaw().split(" ")[2];
         final int volume = Integer.parseInt(s);
         final TextChannel channel = ctx.getChannel();
@@ -27,7 +27,7 @@ public class SetVolumeCommand implements ICommand {
 
             channel.sendMessageEmbeds(m.build()).queue();
             m.clear();
-            return false;
+            return;
         }
 
         final Member member = ctx.getMember();
@@ -40,7 +40,7 @@ public class SetVolumeCommand implements ICommand {
 
             channel.sendMessageEmbeds(m.build()).queue();
             m.clear();
-            return false;
+            return;
         }
 
         if (!memberVoiceState.getChannel().equals(selfVoiceState.getChannel())) {
@@ -50,19 +50,19 @@ public class SetVolumeCommand implements ICommand {
 
             channel.sendMessageEmbeds(m.build()).queue();
             m.clear();
-            return false;
+            return;
         }
 
         final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(ctx.getGuild());
 
-        if (volume > 100) {
+        if (volume > 200) {
             EmbedBuilder m = new EmbedBuilder();
             m.setTitle(" \u274c  Volume cannot be higher than 200!");
             m.setColor(Color.red);
 
             channel.sendMessageEmbeds(m.build()).queue();
             m.clear();
-            return false;
+            return;
         } else if (volume < 0) {
             EmbedBuilder m = new EmbedBuilder();
             m.setTitle(" \u274c  Volume cannot be lower than 0!");
@@ -70,7 +70,7 @@ public class SetVolumeCommand implements ICommand {
 
             channel.sendMessageEmbeds(m.build()).queue();
             m.clear();
-            return false;
+            return;
         }
 
         musicManager.scheduler.player.setVolume(volume);
@@ -81,12 +81,11 @@ public class SetVolumeCommand implements ICommand {
 
         channel.sendMessageEmbeds(m.build()).queue();
         m.clear();
-        return false;
     }
 
     @Override
     public String getName() {
-        return "volume";
+        return "setvol";
     }
 
     @Override

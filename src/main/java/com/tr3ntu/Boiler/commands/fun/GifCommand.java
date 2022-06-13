@@ -1,8 +1,8 @@
 package com.tr3ntu.Boiler.commands.fun;
 
 import com.tr3ntu.Boiler.Config;
-import com.tr3ntu.Boiler.utils.CommandContext;
-import com.tr3ntu.Boiler.utils.ICommand;
+import com.tr3ntu.Boiler.utils.commandUtils.CommandContext;
+import com.tr3ntu.Boiler.utils.commandUtils.ICommand;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -16,7 +16,7 @@ import java.util.Random;
 public class GifCommand implements ICommand {
 
     @Override
-    public boolean handle(CommandContext ctx) {
+    public void handle(CommandContext ctx) {
 
         String url;
         JSONArray array;
@@ -43,7 +43,7 @@ public class GifCommand implements ICommand {
             ctx.getChannel().sendMessage("No GIF found :cry:").queue();
         }
 
-        return false;
+
     }
 
     @Override

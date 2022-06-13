@@ -5,8 +5,8 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import com.tr3ntu.Boiler.audioHandler.GuildMusicManager;
 import com.tr3ntu.Boiler.audioHandler.PlayerManager;
-import com.tr3ntu.Boiler.utils.CommandContext;
-import com.tr3ntu.Boiler.utils.ICommand;
+import com.tr3ntu.Boiler.utils.commandUtils.CommandContext;
+import com.tr3ntu.Boiler.utils.commandUtils.ICommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
@@ -16,7 +16,7 @@ import java.awt.*;
 
 public class NowPlayingCommand implements ICommand {
     @Override
-    public boolean handle(CommandContext ctx) {
+    public void handle(CommandContext ctx) {
         final TextChannel channel = ctx.getChannel();
         final Member self = ctx.getSelfMember();
         final GuildVoiceState selfVoiceState = self.getVoiceState();
@@ -29,7 +29,7 @@ public class NowPlayingCommand implements ICommand {
 
             channel.sendMessage(m.build()).queue();
             m.clear();
-            return false;
+
         }
 
         final Member member = ctx.getMember();
@@ -43,7 +43,7 @@ public class NowPlayingCommand implements ICommand {
 
             channel.sendMessage(m.build()).queue();
             m.clear();
-            return false;
+
         }
 
         if (!memberVoiceState.getChannel().equals(selfVoiceState.getChannel())) {
@@ -53,7 +53,7 @@ public class NowPlayingCommand implements ICommand {
 
             channel.sendMessage(m.build()).queue();
             m.clear();
-            return false;
+
         }
 
         final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(ctx.getGuild());
@@ -67,7 +67,7 @@ public class NowPlayingCommand implements ICommand {
 
             channel.sendMessage(m.build()).queue();
             m.clear();
-            return false;
+
         }
 
         final AudioTrackInfo info = track.getInfo();
@@ -80,7 +80,7 @@ public class NowPlayingCommand implements ICommand {
         channel.sendMessage(m.build()).queue();
         m.clear();
 
-        return false;
+
     }
 
     @Override

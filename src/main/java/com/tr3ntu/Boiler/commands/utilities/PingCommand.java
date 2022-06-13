@@ -1,7 +1,7 @@
 package com.tr3ntu.Boiler.commands.utilities;
 
-import com.tr3ntu.Boiler.utils.CommandContext;
-import com.tr3ntu.Boiler.utils.ICommand;
+import com.tr3ntu.Boiler.utils.commandUtils.CommandContext;
+import com.tr3ntu.Boiler.utils.commandUtils.ICommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +31,7 @@ public class PingCommand implements ICommand {
     }
 
     @Override
-    public boolean handle(CommandContext ctx) {
+    public void handle(CommandContext ctx) {
 
         ctx.getChannel().sendTyping().queue();
 
@@ -52,7 +52,6 @@ public class PingCommand implements ICommand {
 
         LOGGER.info("Ping Command - Executed");
 
-        return false;
     }
 
     @Override

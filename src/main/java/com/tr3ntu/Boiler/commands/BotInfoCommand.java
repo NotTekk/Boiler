@@ -1,8 +1,8 @@
 package com.tr3ntu.Boiler.commands;
 
 import com.tr3ntu.Boiler.Config;
-import com.tr3ntu.Boiler.utils.CommandContext;
-import com.tr3ntu.Boiler.utils.ICommand;
+import com.tr3ntu.Boiler.utils.commandUtils.CommandContext;
+import com.tr3ntu.Boiler.utils.commandUtils.ICommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 
@@ -12,9 +12,8 @@ import java.util.List;
 
 public class BotInfoCommand implements ICommand {
 
-
     @Override
-    public boolean handle(CommandContext ctx) {
+    public void handle(CommandContext ctx) {
 
         List<Guild> guilds = ctx.getJDA().getGuilds();
 
@@ -33,8 +32,6 @@ public class BotInfoCommand implements ICommand {
 
         ctx.getChannel().sendMessageEmbeds(m.build()).queue();
         m.clear();
-
-        return false;
 
     }
 

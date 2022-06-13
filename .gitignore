@@ -1,4 +1,5 @@
-
+database.db
 build/resources/main/.env
 image.png
 src/main/resources/.env
+src/main/java/com/tr3ntu/Boiler/sql

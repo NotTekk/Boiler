@@ -2,8 +2,8 @@ package com.tr3ntu.Boiler.commands.music;
 
 import com.tr3ntu.Boiler.audioHandler.GuildMusicManager;
 import com.tr3ntu.Boiler.audioHandler.PlayerManager;
-import com.tr3ntu.Boiler.utils.CommandContext;
-import com.tr3ntu.Boiler.utils.ICommand;
+import com.tr3ntu.Boiler.utils.commandUtils.CommandContext;
+import com.tr3ntu.Boiler.utils.commandUtils.ICommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
@@ -14,7 +14,7 @@ import java.awt.*;
 
 public class LeaveCommand implements ICommand {
     @Override
-    public boolean handle(CommandContext ctx) {
+    public void handle(CommandContext ctx) {
         final TextChannel channel = ctx.getChannel();
         final Member self = ctx.getSelfMember();
         final GuildVoiceState selfVoiceState = self.getVoiceState();
@@ -26,7 +26,7 @@ public class LeaveCommand implements ICommand {
 
             channel.sendMessage(m.build()).queue();
             m.clear();
-            return false;
+
         }
 
         final AudioManager audioManager = ctx.getGuild().getAudioManager();
@@ -44,7 +44,7 @@ public class LeaveCommand implements ICommand {
         channel.sendMessage(m.build()).queue();
         m.clear();
 
-        return false;
+
     }
 
     @Override

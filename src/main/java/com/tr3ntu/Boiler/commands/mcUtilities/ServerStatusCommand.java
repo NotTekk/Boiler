@@ -1,8 +1,8 @@
 package com.tr3ntu.Boiler.commands.mcUtilities;
 
-import com.tr3ntu.Boiler.utils.CommandContext;
+import com.tr3ntu.Boiler.utils.commandUtils.CommandContext;
 import com.tr3ntu.Boiler.utils.DataHandling;
-import com.tr3ntu.Boiler.utils.ICommand;
+import com.tr3ntu.Boiler.utils.commandUtils.ICommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -20,7 +20,7 @@ import java.util.Objects;
 public class ServerStatusCommand implements ICommand {
 
     @Override
-    public boolean handle(CommandContext ctx) {
+    public void handle(CommandContext ctx) {
 
         String msg = String.valueOf(ctx.getArgs()).replaceAll("[\\[\\]]", "");
         OkHttpClient caller = new OkHttpClient();
@@ -73,7 +73,7 @@ public class ServerStatusCommand implements ICommand {
             ctx.getChannel().sendMessage("Server Not Found").queue();
         }
 
-        return false;
+
     }
 
     @Override

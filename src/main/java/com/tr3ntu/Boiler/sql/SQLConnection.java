@@ -1,67 +1,58 @@
 package com.tr3ntu.Boiler.sql;
 
-import com.tr3ntu.Boiler.Config;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.*;
 
 public class SQLConnection {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SQLConnection.class);
+    SQLConnection() {
 
-    String query;
-
-    public Connection sqlconnected() {
-
-        Connection c = null;
-        String driver = Config.get("DRIVER");
-        String url = Config.get("URL");
-        String db = Config.get("DB");
-        String uname = Config.get("UNAME");
-        String password = Config.get("PASSWORD");
-
-        try {
-            Class.forName(driver);
-            c = DriverManager.getConnection(url + db, uname, password);
-            if(c == null) {
-                LOGGER.info("Connection is not established");
-            }
-            LOGGER.info("SQL - Connection established");
-            return c;
-        } catch (Exception e) {
-            LOGGER.warn("Error:" + e);
-        }
-        return c;
     }
 
-/*    public ArrayList<String> getReport() {
-        try {
-            Statement sql = new SQLConnection().sqlconnected().createStatement();
-            ResultSet resultSet = sql.executeQuery("SELECT word FROM CURSE_WORDS;");
-            if (!resultSet.next()) {
-                sql.close();
-                resultSet.close();
-                return null;
-            }
-            ArrayList<String> rowValues = new ArrayList<String>();
-            int columnCount = resultSet.getMetaData().getColumnCount();
-            String[] columnNames = new String[columnCount];
-            for (int idx = 0; idx < columnCount; idx++) {
-                columnNames[idx] = resultSet.getMetaData().getColumnName(idx);
-            }
+    private static final Logger LOGGER = LoggerFactory.getLogger(SQLConnection.class);
 
-            while (resultSet.next()) {
-                for (String columnName : columnNames) {
-                    rowValues.add(resultSet.getString(columnName));
+    private static final HikariConfig config = new HikariConfig();
+    private static final HikariDataSource ds;
+
+    static {
+        try {
+            final File dbFile = new File("database.db");
+
+            if (!dbFile.exists()) {
+                if (dbFile.createNewFile()) {
+                    LOGGER.info("Created database file");
+                } else {
+                    LOGGER.info("Could not create database file");
                 }
             }
-            sql.close();
-            resultSet.close();
-            return rowValues;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-    } */
+
+        config.setJdbcUrl("jdbc:sqlite:database.db");
+        config.setConnectionTestQuery("SELECT 1");
+        config.addDataSourceProperty("cachePrepStmts", "true");
+        config.addDataSourceProperty("prepStmtCacheSize", "250");
+        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+        ds = new HikariDataSource(config);
+
+        new SQLCreateStatement().createStatement();
+
+    }
+
+    public static Connection getConnection() throws SQLException {
+        return ds.getConnection();
+    }
+
+    public static void closeConnection(Connection connection) throws SQLException {
+        connection.close();
+    }
+
 }

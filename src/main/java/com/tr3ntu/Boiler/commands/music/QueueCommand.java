@@ -4,8 +4,8 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import com.tr3ntu.Boiler.audioHandler.GuildMusicManager;
 import com.tr3ntu.Boiler.audioHandler.PlayerManager;
-import com.tr3ntu.Boiler.utils.CommandContext;
-import com.tr3ntu.Boiler.utils.ICommand;
+import com.tr3ntu.Boiler.utils.commandUtils.CommandContext;
+import com.tr3ntu.Boiler.utils.commandUtils.ICommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.requests.restaction.MessageAction;
@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 public class QueueCommand implements ICommand {
     @Override
-    public boolean handle(CommandContext ctx) {
+    public void handle(CommandContext ctx) {
         final TextChannel channel = ctx.getChannel();
         final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(ctx.getGuild());
         final BlockingQueue<AudioTrack> queue = musicManager.scheduler.queue;
@@ -31,7 +31,7 @@ public class QueueCommand implements ICommand {
 
             channel.sendMessage(m.build()).queue();
             m.clear();
-            return false;
+            return;
         }
 
         final int trackCount = Math.min(queue.size(), 20);
@@ -60,7 +60,6 @@ public class QueueCommand implements ICommand {
         }
 
         messageAction.queue();
-        return false;
     }
 
     private String formatTime(long timeInMillis) {
