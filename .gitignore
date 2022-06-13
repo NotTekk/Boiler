@@ -5,3 +5,5 @@ src/main/resources/.env
 src/main/java/com/tr3ntu/Boiler/sql
 build
 .gradle
+gradle
+
