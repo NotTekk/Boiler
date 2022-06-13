@@ -7,3 +7,9 @@ build
 .gradle
 gradle
 
+.gradle/7.4.2/executionHistory/executionHistory.bin
+.gradle/7.4.2/executionHistory/executionHistory.lock
+.gradle/7.4.2/fileHashes/fileHashes.bin
+.gradle/7.4.2/fileHashes/fileHashes.lock
+.gradle/buildOutputCleanup/buildOutputCleanup.lock
+.gradle/file-system.probe
