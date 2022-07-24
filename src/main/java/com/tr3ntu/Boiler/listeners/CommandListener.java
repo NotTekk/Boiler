@@ -20,7 +20,7 @@ public class CommandListener extends ListenerAdapter {
     private static final Logger LOGGER = LoggerFactory.getLogger(CommandListener.class);
     private final CommandManager manager = new CommandManager();
     public static final Map<Long, String> PREFIXES = new HashMap<>();
-    public final String DEFAULT_PREFIX = "<@979349838024015882> ";
+    public static final String DEFAULT_PREFIX = "<@979349838024015882> ";
 
     @Override
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {

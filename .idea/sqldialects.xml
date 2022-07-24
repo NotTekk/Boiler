@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
-    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/be989dd8-3305-4f4e-bb6f-e6ef5c44c8a4/console.sql" dialect="SQLite" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/tr3ntu/Boiler/sql/SQLConnection.java" dialect="GenericSQL" />
   </component>
 </project>

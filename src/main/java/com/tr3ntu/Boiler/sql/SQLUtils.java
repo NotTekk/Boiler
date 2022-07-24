@@ -1,15 +1,36 @@
 package com.tr3ntu.Boiler.sql;
 
-import net.dv8tion.jda.api.entities.TextChannel;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.function.Function;
 
 public class SQLUtils {
+
+    public static void setGuildSettings(long guildId, String DEFAULT_PREFIX) {
+        try (final Connection connection = SQLConnection.getConnection();
+             PreparedStatement insertStatement = connection.prepareStatement("INSERT INTO guild_settings(guild_id, prefix, moderated) VALUES (?, ?, ?)")) {
+            insertStatement.setString(1, String.valueOf(guildId));
+            insertStatement.setString(2, DEFAULT_PREFIX);
+            insertStatement.setString(3, "false");
+            insertStatement.executeUpdate();
+            insertStatement.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void removeGuildSettings(long guildId) {
+        try (final Connection connection = SQLConnection.getConnection();
+             PreparedStatement insertStatement = connection.prepareStatement("DELETE FROM guild_settings WHERE guild_id = ?")) {
+            insertStatement.setString(1, String.valueOf(guildId));
+            insertStatement.executeUpdate();
+            insertStatement.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public static String getPrefix(long guildId, String DEFAULT_PREFIX) {
         try (final Connection connection = SQLConnection.getConnection();
@@ -174,5 +195,4 @@ public class SQLUtils {
         }
         return 0;
     }
-
 }

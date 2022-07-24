@@ -1,5 +1,6 @@
 package com.tr3ntu.Boiler.listeners;
 
+import com.tr3ntu.Boiler.sql.SQLUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.GuildChannel;
@@ -7,8 +8,10 @@ import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
+import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.internal.requests.Route;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,6 +53,24 @@ public class MainListener extends ListenerAdapter {
             server.setFooter("\n\nCreated by Tr3ntu#0001", "https://images-ext-1.discordapp.net/external/JLnQ9CN_ZuN_yF8nDAHN22SwE2njO3Uepz_UpIigFUw/https/cdn.discordapp.com/avatars/571414793454485511/a_cd71c8973dc4be2f6fa650561b081d84.gif");
             channel.sendMessageEmbeds(server.build()).queue();
             server.clear();
+        }
+
+        try {
+            SQLUtils.setGuildSettings(guild.getIdLong(), CommandListener.DEFAULT_PREFIX);
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+    }
+
+    @Override
+    public void onGuildLeave(@NotNull GuildLeaveEvent event) {
+
+        Guild guild = event.getGuild();
+
+        try {
+            SQLUtils.removeGuildSettings(guild.getIdLong());
+        } catch (Exception e) {
+            System.err.println(e);
         }
     }
 }
